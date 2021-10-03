@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=666, initial-scale=1.0">
+    <title>teste</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+    <div id="mainin"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+    <script>
+        var mymap = L.map('mainin').setView([-8.120847002316966, -34.897162740040315], 16);
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoibWxwY3MiLCJhIjoiY2t1YWs0NGdjMGhsYTJ3bWE3YXMzbzVobSJ9.CJ5BXwigk0HlovuJDM8QYQ'
+    }).addTo(mymap)
+
+        var points = [[[-8.120847002316966, -34.897162740040315],500,2, 'hellcife'],[[-8.126860147620743, -34.90343461429974],200,3,'hellcife2']]
+        points.forEach(function(point) {
+            degree =  point[2]
+            if (point[2]==1){
+                color = 'yellow'
+                fillColor = '#F9E79F'
+            }
+            else if(point[2]==2){
+                color = 'orange'
+                fillColor = '#F39C12'
+            }
+            else{
+                color = 'red'
+                fillColor = '#E74C3C'
+
+            }
+            var circle = L.circle(point[0], {
+            color: color,
+            fillColor: fillColor,
+            fillOpacity: 0.5,
+            radius: point[1]
+            
+            }).addTo(mymap);
+            circle.bindPopup("Local = ".concat(point[3]));
+        
+        }); 
+
+        var popup = L.popup()
+
+    </script>
+    
+    
+</body>
+</html>
+
