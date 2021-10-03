@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    color: #8F9599;
+    background-color: #F2F6F9;
+}
+.all-content, .left-content{
+    display: flex;
+    flex-direction: row;
+}
+.all-content {
+    justify-content: space-between;
+    height: 100%;
+}
+
+.left-content {
+    background-color: #278DF7;
+    justify-content: right;
+    min-width: 20em;
+    box-shadow: 2px 0px 12px #00000052;
+}
+
+.left-content .menu {
+    width: 80%;
+    min-width: 10em;
+    background-color: white;
+}
+
+.right-content {
+    box-shadow: -2px 0px 12px #00000052;
+    min-width: 20em;
+    background-color: white;
+}
+.mid-content {
+    margin: 3em auto;
+}
+.map-title {
+    padding: 5px 20px;
+    background-color: #278DF7;
+    font-weight: lighter;
+    color: white;
+    border-radius: 10px;
+}
+.menu {
+    padding: 20px 10px;
+}
+.country {
+    font-size: 30px;
+}
+.section h2 {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+
+/*FONTS*/
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 400;
+    src: local("Segoe UI");
+}
