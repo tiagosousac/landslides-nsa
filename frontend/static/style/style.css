@@ -5,7 +5,7 @@ body {
     color: #8F9599;
     background-color: #F2F6F9;
 }
-.all-content, .left-content{
+.all-content, .left-content, .date{
     display: flex;
     flex-direction: row;
 }
@@ -51,6 +51,16 @@ body {
 .section h2 {
     font-weight: bold;
     font-size: 15px;
+}
+.section ul {
+    list-style: none;
+    padding: 0px;
+    border: 1px solid;
+    width: fit-content;
+}
+.section ul li {
+    padding: 5px 20px;
+    border-bottom: 1px solid;
 }
 
 
