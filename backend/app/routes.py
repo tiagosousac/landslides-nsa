@@ -20,8 +20,18 @@ def get_map_data():
 def get_filter_data():
     country = request.args.get('country')
     year = request.args.get('year')
+    initial = request.args.get('initial')
+
+        
 
     df = getLSDataframe()
+
+    if(initial):
+        initial_dict = {}
+
+        initial_dict["years"] = df.year.unique().tolist()
+        initial_dict["countries"] = df.country_name.unique().tolist()
+        return initial_dict
 
     if(country is not None):
         df = df[df.country_name == country]
@@ -32,5 +42,6 @@ def get_filter_data():
 
     curr_df_series = json.dumps(curr_df_series.values.tolist())
     return curr_df_series
+
 
     
