@@ -5,6 +5,15 @@ body {
     color: #8F9599;
     background-color: #F2F6F9;
 }
+span {
+    width: 17px;
+    height: 20px;
+    padding: 5px 10px;
+    border: 1px solid;
+    border-radius: 2px;
+    margin-right: 5px;
+    box-shadow: 0px 0px 1px;
+}
 .all-content, .left-content, .date{
     display: flex;
     flex-direction: row;
@@ -55,16 +64,43 @@ body {
 .section ul {
     list-style: none;
     padding: 0px;
-    border: 1px solid;
+    border: 1px solid #a2a2a2;
     width: fit-content;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.section {
+    margin-bottom: 50px;
 }
 .section ul li {
     padding: 5px 20px;
     border-bottom: 1px solid;
 }
-
-
-
+.right-content  a {
+    padding: 7px 15px;
+    background-color: #278DF7;
+    font-weight: lighter;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    float: right;
+    margin-right: 20px;
+}
+.main-events li {
+    margin: 10px;
+    border: 1px solid;
+    margin: 0;
+}
+.main-events ul {
+    border: none;
+    width: -webkit-fill-available;
+    margin-right: 10px;
+}
+.main-events ul li {
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
 /*FONTS*/
 @font-face {
     font-family: "Segoe UI";
