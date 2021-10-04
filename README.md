@@ -14,10 +14,12 @@ This is the prototype that we based our application. Not all features were able 
 
 ``` 
 source backend/venv/bin/activate 
+cd backend
 flask run
 ```
 
 By running this command, you'll have our project running in your machine.
 
+You can access the URL displayed in the command line for testing.
 
 
