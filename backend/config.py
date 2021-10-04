@@ -1,4 +1,5 @@
 import os
 
 class Config(object):
-    CSV_PATH = os.environ.get('CSV_PATH')
+    LS_CSV_PATH = os.environ.get('LS_CSV_PATH')
+    COUNTRY_CSV_PATH = os.environ.get('COUNTRY_CSV_PATH')

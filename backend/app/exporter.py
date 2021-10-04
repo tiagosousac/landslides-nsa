@@ -1,5 +1,5 @@
 from app import app
-from pandas import read_csv, DataFrame, DatetimeIndex
+from pandas import read_csv, DataFrame, DatetimeIndex, merge
 import numpy
 
 def cleanData(df):
@@ -19,27 +19,39 @@ def transformData(df):
     return new_df
 
 def initDF(): #initializes pandas dataframe
-    df_landslides = read_csv(app.config['CSV_PATH'], delimiter=',', parse_dates=[0], usecols=getCsvColumns())
+    df_landslides = read_csv(app.config['LS_CSV_PATH'], delimiter=',', parse_dates=[0], usecols=getCsvColumns(False))
     df_landslides = transformData(cleanData(df_landslides)) # removing rows where year and location components are null
-    df_landslides = df_landslides.groupby(["year", "country_name"]).aggregate(list).reset_index()
-    print(df_landslides)
-    
+    df_landslides = df_landslides.groupby(["year", "country_name", "country_code"]).aggregate(list).reset_index()
 
     return df_landslides
+
+def initCountries():
+    df_countries = read_csv(app.config['COUNTRY_CSV_PATH'], delimiter=',', usecols=[0,2,3], header=0, names=['country_code', 'country_latitude', 'country_longitude'])
+    
+    df_countries = merge(df_countries, getLSDataframe(), on="country_code", how="inner")
+    df_countries = df_countries.drop_duplicates(subset=["country_code"])[["country_code", "country_latitude", "country_longitude", "country_name"]].copy()
+
+    return df_countries.T.to_dict()
+
 
 def getLSDataframe():
     return df
 
-def getCsvColumns():
+def getCsvColumns(initial=True):
+    if(not initial):
+        return ['event_date', 'event_title', 'event_description','location_description',  'landslide_category', 'landslide_trigger', 'landslide_size', 'fatality_count', 'injury_count', 'latitude', 'longitude', 'country_name', 'country_code']
     return ['event_date', 'event_title', 'event_description','location_description',  'landslide_category', 'landslide_trigger', 'landslide_size', 'fatality_count', 'injury_count', 'latitude', 'longitude', 'country_name']
 
 def getFilteredDataframe(country, year):
     df = getLSDataframe()
+    df = df.drop('country_code', 1)
 
     if(country is not None):
         df = df[df.country_name == country]
     if(year is not None):
         df = df[df.year == int(year)]
+
+    print(df)
 
     df = df.to_dict('r')[0]
     df["event_date"] = [time_unit.to_pydatetime().timestamp() for time_unit in df["event_date"]]
@@ -52,6 +64,7 @@ def getFilteredDataframe(country, year):
     numpy_array = numpy.array(list_of_lists)
     transpose = numpy_array.T
     transpose_list = transpose.tolist()
+    print(transpose_list)
     transpose_list = [([year, country] + list) for list in transpose_list]
 
     return transpose_list
@@ -66,3 +79,4 @@ def getInitialFilters():
     return initial_dict
 
 df = initDF()
+countries = initCountries()

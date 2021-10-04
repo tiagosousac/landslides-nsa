@@ -7,7 +7,10 @@ from app.exporter import *
 @app.route('/index')
 def index():
     initial_filters = getInitialFilters()
-    return render_template('index.html', years=initial_filters.get('years'), countries=initial_filters.get('countries'))
+    initial_countries = initCountries().items()
+    initial_countries = [curr_item[1] for curr_item in initial_countries]
+
+    return render_template('index.html', years=initial_filters.get('years'), countries=initial_countries)
 
 @app.route('/get_map_data')
 def get_map_data():
@@ -15,7 +18,8 @@ def get_map_data():
     year = request.args.get('year')
     
     df_list = getFilteredDataframe(country, year)
-    return json.dumps(df_list)
+    print(json.dumps(df_list))
+    return render_template('main.html', years=year, country=country)
 
 @app.route('/get_filter_data')
 def get_filter_data():

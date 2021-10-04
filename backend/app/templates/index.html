@@ -28,7 +28,7 @@
     crossorigin=""></script>
     <script src="{{ url_for('static', filename='node_modules/leaflet-search/src/leaflet-search.js')}}"></script>
     <script>
-        var mymap = L.map('mainin').setView([-8.120847002316966, -34.897162740040315], 16);
+        var mymap = L.map('mainin').setView([-8.120847002316966, -34.897162740040315], 8);
 
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -38,8 +38,21 @@
             zoomOffset: -1,
             accessToken: 'pk.eyJ1IjoibWxwY3MiLCJhIjoiY2t1YWs0NGdjMGhsYTJ3bWE3YXMzbzVobSJ9.CJ5BXwigk0HlovuJDM8QYQ'
         }).addTo(mymap)
+
+        var searchLayer = L.layerGroup().addTo(mymap);
         
-        mymap.addControl( new L.Control.Search({layer: searchLayer}) );
+        {% for country in countries %}
+        searchLayer.addLayer(L.marker([{{country.country_latitude}}, {{country.country_longitude}}], {title: "{{country.country_name}}"}));
+        {% endfor %}
+
+
+        var searchControl = new L.Control.Search({layer: searchLayer, initial: false, collapsed: false});
+        mymap.addControl(searchControl);
+
+        searchControl.on('search:locationfound', function(e) {
+            console.log(e);
+            console.log('entro mermo');
+        });
 
         function changeYear(data) {
             console.log(data);

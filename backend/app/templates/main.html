@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandei o git aí já</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <style>
+        #mainin {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            color: #8F9599;
+            background-color: #F2F6F9;
+        }
+        .all-content, .left-content{
+            display: flex;
+            flex-direction: row;
+        }
+        .all-content {
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .left-content {
+            background-color: #278DF7;
+            justify-content: right;
+            min-width: 20em;
+            box-shadow: 2px 0px 12px #00000052;
+        }
+
+        .left-content .menu {
+            width: 80%;
+            min-width: 10em;
+            background-color: white;
+        }
+
+        .right-content {
+            box-shadow: -2px 0px 12px #00000052;
+            min-width: 20em;
+            background-color: white;
+        }
+        .mid-content {
+            margin: 3em auto;
+        }
+        .map-title {
+            padding: 5px 20px;
+            background-color: #278DF7;
+            font-weight: lighter;
+            color: white;
+            border-radius: 10px;
+        }
+        .menu {
+            padding: 20px 10px;
+        }
+        .country {
+            font-size: 30px;
+        }
+        .section h2 {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+
+
+        /*FONTS*/
+        @font-face {
+            font-family: "Segoe UI";
+            font-weight: 400;
+            src: local("Segoe UI");
+        }
+    </style>
+</head>
+<body>
+    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <div class="all-content">
+        <section class="left-content">
+            <div class="menu">
+                <header>
+                    <a class="back-arrow"></a>
+                    <h1 class="country">Algeria</h1>
+                </header>
+                <div class="menu-content">
+                    <div id="mainin"></div>
+                    <div class="section date">
+                        <h2>Date</h2>
+                        <select name="" id=""></select>
+                    </div>
+                    <div class="section occurrences">
+                        <h2>Occurrences</h2>
+                        <ul>
+                            <li>lalalalaallaal</li>
+                            <li>lalalalaallaal</li>
+                            <li>lalalalaallaal</li>
+                            <li>lalalalaallaal</li>
+                            <li>lalalalaallaal</li>
+                        </ul>
+                    </div>
+                    <div class="section main-events">
+                        <h2>Main events</h2>
+                        <ul>
+                            <li>lalalalaallaal</li>
+                            <li>lalalalaallaal</li>
+                            <li>lalalalaallaal</li>
+                            <li>lalalalaallaal</li>
+                            <li>lalalalaallaal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mid-content">
+            <div>
+                <h2 class="map-title">Algeria landslide history</h2>
+                <div class="map"></div>
+                <div class="section frequency">
+                    <h2>Frequency of Landslides</h2>
+                    <ul>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="right-content">
+            <div class="menu">
+                <div class="section lands-by-cause">
+                    <h2>Landslides by cause</h2>
+                    <ul>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                    </ul>
+                </div>
+                <div class="section other-risk">
+                    <h2>Other risk categories</h2>
+                    <ul>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                        <li>lalalalaallaal</li>
+                    </ul>
+                </div>
+            </div>
+            <a href="">Export CSV</a>
+        </section>
+    </div>
+    <script>
+        var mymap = L.map('mainin').setView([-8.120847002316966, -34.897162740040315], 8);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoibWxwY3MiLCJhIjoiY2t1YWs0NGdjMGhsYTJ3bWE3YXMzbzVobSJ9.CJ5BXwigk0HlovuJDM8QYQ'
+        }).addTo(mymap)
+        
+        </script>
+</body>
+</html>
