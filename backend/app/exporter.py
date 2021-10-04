@@ -56,4 +56,13 @@ def getFilteredDataframe(country, year):
 
     return transpose_list
 
+def getInitialFilters():
+    df = getLSDataframe()
+
+    initial_dict = {}
+
+    initial_dict["years"] = df.year.unique().tolist()
+    initial_dict["countries"] = df.country_name.unique().tolist()
+    return initial_dict
+
 df = initDF()

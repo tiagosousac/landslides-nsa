@@ -6,7 +6,8 @@ from app.exporter import *
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    initial_filters = getInitialFilters()
+    return render_template('index.html', years=initial_filters.get('years'), countries=initial_filters.get('countries'))
 
 @app.route('/get_map_data')
 def get_map_data():
@@ -21,8 +22,6 @@ def get_filter_data():
     country = request.args.get('country')
     year = request.args.get('year')
     initial = request.args.get('initial')
-
-        
 
     df = getLSDataframe()
 
