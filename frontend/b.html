@@ -3,63 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=666, initial-scale=1.0">
-    <title>teste</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="node_modules/leaflet-search/src/leaflet-search.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {width: 100vw; height: 100vh;} 
+        
+        #mainin {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
-
-    <div id="mainin"></div>
+    
+    <div id="mainin" style ></div>
+    
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
-
+    <script src="src/leaflet-providers.js"></script>
+    <script src="node_modules/leaflet-search/src/leaflet-search.js"></script>
     <script>
         var mymap = L.map('mainin').setView([-8.120847002316966, -34.897162740040315], 16);
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoibWxwY3MiLCJhIjoiY2t1YWs0NGdjMGhsYTJ3bWE3YXMzbzVobSJ9.CJ5BXwigk0HlovuJDM8QYQ'
-    }).addTo(mymap)
 
-        var points = [[[-8.120847002316966, -34.897162740040315],500,2, 'hellcife'],[[-8.126860147620743, -34.90343461429974],200,3,'hellcife2']]
-        points.forEach(function(point) {
-            degree =  point[2]
-            if (point[2]==1){
-                color = 'yellow'
-                fillColor = '#F9E79F'
-            }
-            else if(point[2]==2){
-                color = 'orange'
-                fillColor = '#F39C12'
-            }
-            else{
-                color = 'red'
-                fillColor = '#E74C3C'
+        L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(mymap);
+        var searchLayer = L.layerGroup().addTo(mymap);
+        mymap.addControl( new L.Control.Search({layer: searchLayer}) );
 
-            }
-            var circle = L.circle(point[0], {
-            color: color,
-            fillColor: fillColor,
-            fillOpacity: 0.5,
-            radius: point[1]
-            
-            }).addTo(mymap);
-            circle.bindPopup("Local = ".concat(point[3]));
-        
-        }); 
-
-        var popup = L.popup()
-
+        var legend = L.control({position: 'topleft'});
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'dropdown');
+            div.innerHTML = `<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Ano
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>`;
+            div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation;
+            return div;
+        };  
+        legend.addTo(mymap);
     </script>
-    
-    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
-
